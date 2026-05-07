@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Simpletics — Creator Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* exact colors from photos */
+  --bg:       #0d0d0d;
+  --bg2:      #111111;
+  --card:     #1a1a1a;
+  --card2:    #202020;
+  --card3:    #252525;
+  --border:   #2a2a2a;
+  --border2:  #333333;
+
+  /* gold accent — exact from photos */
+  --gold:     #b8902a;
+  --gold2:    #c9a840;
+  --gold-dim: #7a5e18;
+  --gold-bg:  #1a1400;
+  --gold-bg2: #221b00;
+  --gold-card:linear-gradient(135deg,#1e1600 0%,#141000 100%);
+
+  /* text */
+  --white:  #ffffff;
+  --muted:  #999999;
+  --dim:    #666666;
+
+  /* status */
+  --green:  #3ecf8e;
+  --red:    #e05252;
+  --blue:   #5b9bd5;
+  --amber:  #d4960a;
+
+  --r: 14px;
+  --rs: 10px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  max-width: 430px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+.screen { display:none; min-height:100vh; flex-direction:column; }
+.screen.active { display:flex; }
+
+/* ════════════════════════════════
+   LOGIN  — matches photo 1 exactly
+════════════════════════════════ */
+#ls {
+  background: var(--bg);
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.lcard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 36px 28px;
+  width: 100%;
+  animation: up .4s ease both;
+}
+
+@keyframes up { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+.llogo {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.llogo img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.llogo-fb {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: none;
+}
+
+.l-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.l-sub {
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 28px;
+  font-weight: 400;
+}
+
+.l-err {
+  background: rgba(224,82,82,.12);
+  border: 1px solid rgba(224,82,82,.25);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #e07070;
+  margin-bottom: 14px;
+  display: none;
+  text-align: center;
+}
+
+.l-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.l-inp-wrap {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.l-inp-ico {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--dim);
+}
+
+.l-inp {
+  width: 100%;
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  border-radius: var(--rs);
+  padding: 14px 16px 14px 44px;
+  font-size: 15px;
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.l-inp:focus { border-color: var(--gold-dim); }
+.l-inp::placeholder { color: var(--dim); }
+
+.l-btn {
+  width: 100%;
+  background: var(--gold);
+  color: #0d0d0d;
+  border: none;
+  border-radius: var(--rs);
+  padding: 15px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all .2s;
+  margin-bottom: 18px;
+  letter-spacing: .2px;
+}
+
+.l-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+.l-btn:active { transform: translateY(0); }
+
+.l-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.6;
+}
+
+/* ════════════════════════════════
+   ADMIN SCREEN
+════════════════════════════════ */
+#as { background: var(--bg); }
+
+.ah {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 18px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.a-logo { display:flex; align-items:center; gap:10px; }
+
+.a-logo img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.a-logo-fb {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 1px;
+  display: none;
+}
+
+.a-pill {
+  background: var(--gold);
+  color: #0d0d0d;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.hbr { display:flex; gap:8px; }
+
+.btn-gold {
+  background: var(--gold);
+  color: #0d0d0d;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.btn-gold:hover { background: var(--gold2); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.btn-ghost:hover { color: var(--white); border-color: var(--dim); }
+
+.ab {
+  flex: 1;
+  padding: 24px 18px;
+  overflow-y: auto;
+}
+
+.page-t {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 4px;
+  letter-spacing: -.3px;
+}
+
+.page-s {
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stat-c {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 16px;
+}
+
+.stat-l { font-size: 11px; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 8px; }
+.stat-v { font-size: 28px; font-weight: 800; color: var(--white); letter-spacing: -.5px; line-height: 1; }
+.stat-s { font-size: 11px; color: var(--dim); margin-top: 4px; }
+
+.acard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 22px;
+  margin-bottom: 14px;
+}
+
+.acard-t {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 18px;
+}
+
+.fg2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+.fg { display:flex; flex-direction:column; gap:6px; }
+.fg.full { grid-column:1/-1; }
+.fl { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; }
+
+.fi {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 11px 13px;
+  font-size: 14px;
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.fi:focus { border-color: var(--gold-dim); }
+.fi::placeholder { color: var(--dim); }
+
+.form-btns { display:flex; gap:10px; }
+
+.btn-p {
+  background: var(--gold);
+  color: #0d0d0d;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.btn-p:hover { background: var(--gold2); }
+
+.btn-s {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 11px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.btn-s:hover { color: var(--white); }
+
+/* TABLE */
+.tw { overflow-x: auto; }
+table { width:100%; border-collapse:collapse; }
+th { text-align:left; font-size:10px; font-weight:600; color:var(--dim); text-transform:uppercase; letter-spacing:.8px; padding:10px 12px; border-bottom:1px solid var(--border); }
+td { padding:13px 12px; font-size:13px; border-bottom:1px solid var(--bg2); vertical-align:middle; }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:rgba(255,255,255,.02); }
+
+.hc { font-size:13px; font-weight:600; color:var(--white); }
+.nc { font-size:12px; color:var(--dim); margin-top:2px; }
+
+.bge { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+.bg-a { background:rgba(62,207,142,.12); color:var(--green); border:1px solid rgba(62,207,142,.2); }
+.bg-e { background:rgba(224,82,82,.12); color:var(--red); border:1px solid rgba(224,82,82,.2); }
+
+.mini-b { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--muted); }
+.mini-w { width:60px; height:3px; background:var(--border2); border-radius:2px; overflow:hidden; }
+.mini-f { height:100%; background:var(--gold); border-radius:2px; }
+
+.ptag { font-size:12px; background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:3px 8px; color:var(--muted); }
+
+.ab-row { display:flex; gap:6px; white-space:nowrap; }
+.bx { padding:5px 11px; font-size:11px; border-radius:6px; cursor:pointer; font-family:'Inter',sans-serif; font-weight:600; border:1px solid var(--border2); background:transparent; color:var(--muted); transition:all .15s; }
+.bx:hover { color:var(--white); border-color:var(--dim); }
+.bxd { padding:5px 10px; font-size:11px; border-radius:6px; cursor:pointer; font-family:'Inter',sans-serif; font-weight:600; border:1px solid rgba(224,82,82,.2); background:rgba(224,82,82,.06); color:var(--red); transition:all .15s; }
+.bxd:hover { background:rgba(224,82,82,.14); }
+
+.empty { text-align:center; padding:48px 20px; color:var(--dim); }
+.empty-i { font-size:28px; margin-bottom:12px; opacity:.3; }
+
+/* ════════════════════════════════
+   CREATOR PORTAL — matches photos exactly
+════════════════════════════════ */
+#cs { background: var(--bg); }
+
+/* HEADER — matches photo header exactly */
+.crh {
+  background: var(--bg2);
+  padding: 14px 16px 0;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--border);
+}
+
+.crh-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.crh-left { display:flex; align-items:center; gap:10px; }
+
+.crh-logo img {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  display: block;
+}
+
+.crh-logo-fb {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 1px;
+  display: none;
+}
+
+.crh-suite {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -.2px;
+}
+
+.crh-welcome {
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.crh-back {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 6px 13px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all .15s;
+}
+
+.crh-back:hover { color: var(--white); border-color: var(--dim); }
+
+/* CONTRACT CHIP */
+.cc {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--rs);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+
+.cc-l { font-size: 11px; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 4px; }
+.cc-v { font-size: 17px; font-weight: 700; color: var(--white); letter-spacing: -.1px; }
+
+/* TABS — pill style exactly matching photos */
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  background: var(--card);
+  border-radius: var(--rs) var(--rs) 0 0;
+  padding: 6px;
+  gap: 4px;
+}
+
+.tb {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.tb.on {
+  background: var(--gold);
+  color: #0d0d0d;
+  font-weight: 700;
+}
+
+.tb:not(.on):hover { color: var(--white); }
+
+/* BODY */
+.crb {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 14px 32px;
+  background: var(--bg);
+}
+
+.pane { display:none; }
+.pane.on { display:block; }
+
+/* ── ANNOUNCEMENT CARD — matches photos ── */
+.ann-wrap {
+  background: var(--gold-card);
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.ann-top {
+  background: linear-gradient(135deg, #c9a020 0%, #a07018 100%);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ann-ico {
+  width: 40px; height: 40px;
+  background: var(--white);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.ann-title { font-size: 17px; font-weight: 800; color: #0d0d0d; letter-spacing: -.2px; }
+
+.new-badge {
+  display: inline-block;
+  background: var(--red);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-top: 3px;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+
+.ann-body {
+  background: var(--card2);
+  margin: 0;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.ann-ico2 {
+  width: 36px; height: 36px;
+  background: rgba(91,155,213,.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  border: 1px solid rgba(91,155,213,.3);
+  color: var(--blue);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.ann-txt { font-size: 14px; color: var(--white); line-height: 1.6; font-weight: 600; }
+.ann-tag { display:inline-block; background:rgba(91,155,213,.15); color:var(--blue); border:1px solid rgba(91,155,213,.25); font-size:11px; padding:2px 8px; border-radius:5px; margin:8px 0 4px; font-weight:600; letter-spacing:.3px; }
+.ann-time { font-size: 12px; color: var(--dim); margin-top: 6px; display:flex; align-items:center; gap:5px; }
+
+/* ── TERM STATUS — gold card like photos ── */
+.term-card {
+  background: linear-gradient(135deg, #1a1300 0%, #110d00 100%);
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--r);
+  padding: 18px 18px 16px;
+  margin-bottom: 12px;
+}
+
+.term-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.term-ico { color: var(--gold); font-size: 17px; }
+
+.term-big { font-size: 36px; font-weight: 900; color: var(--white); letter-spacing: -1px; line-height: 1; margin-bottom: 3px; }
+.term-lbl { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 14px; }
+
+.term-row { display:grid; grid-template-columns:1fr 1fr; gap:0; margin-bottom:14px; }
+
+.term-footer {
+  background: rgba(0,0,0,.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ── METRIC CARDS ── */
+.mc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mc-left { flex: 1; }
+.mc-lbl { font-size: 13px; color: var(--muted); font-weight: 500; margin-bottom: 6px; }
+.mc-val { font-size: 28px; font-weight: 900; color: var(--white); letter-spacing: -1px; line-height: 1; }
+.mc-sub { font-size: 12px; color: var(--dim); margin-top: 4px; }
+.mc-ico { font-size: 22px; color: var(--green); opacity: .8; }
+.mc-ico-gold { font-size: 22px; color: var(--gold); opacity: .8; }
+
+/* ── PROGRESS CARD ── */
+.prog-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.prog-t { font-size: 18px; font-weight: 800; color: var(--white); margin-bottom: 4px; letter-spacing: -.3px; }
+.prog-s { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+.prog-bar { height: 5px; background: var(--border2); border-radius: 3px; overflow:hidden; }
+.prog-fill { height:100%; background:var(--gold); border-radius:3px; transition:width .6s ease; }
+.prog-stats { display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-top:10px; font-weight:500; }
+
+/* ── PAYMENT HISTORY ── */
+.pay-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.pay-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.pay-title { font-size: 20px; font-weight: 800; color: var(--white); letter-spacing: -.3px; }
+.pay-title-ico { color: var(--gold); font-size: 20px; }
+.pay-sub { font-size: 13px; color: var(--gold); margin-bottom: 16px; font-weight: 500; }
+
+.pay-item {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: var(--rs);
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.pay-item:last-child { margin-bottom: 0; }
+.pay-amt { font-size: 17px; font-weight: 700; color: var(--white); letter-spacing: -.2px; }
+.pay-info { font-size: 12px; color: var(--dim); margin-top: 3px; }
+.paid-tag { background: rgba(62,207,142,.15); color: var(--green); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(62,207,142,.25); }
+
+.pay-more { text-align:center; font-size:12px; color:var(--dim); padding-top:10px; }
+
+/* ── ACTION BUTTONS — match photos exactly ── */
+.act-list { display:flex; flex-direction:column; gap:10px; margin-bottom:12px; }
+
+.act-gold {
+  background: var(--gold);
+  color: #0d0d0d;
+  border: none;
+  border-radius: var(--r);
+  padding: 17px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all .2s;
+  letter-spacing: .1px;
+}
+
+.act-gold:hover { background: var(--gold2); transform: translateY(-1px); }
+
+.act-dark {
+  background: var(--card);
+  color: var(--gold);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all .15s;
+}
+
+.act-dark:hover { border-color: var(--gold-dim); }
+
+.act-disabled {
+  background: transparent;
+  color: var(--dim);
+  border: none;
+  border-radius: var(--r);
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: not-allowed;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── SUBMISSIONS ── */
+.subs-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.subs-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.subs-ico { color: var(--gold); font-size: 18px; }
+.subs-title { font-size: 20px; font-weight: 800; color: var(--white); letter-spacing: -.3px; }
+.subs-sub { font-size: 13px; color: var(--gold); font-weight: 500; margin-bottom: 14px; }
+
+.sub-item {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: var(--rs);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.sub-thumb {
+  background: linear-gradient(135deg, var(--card3), var(--card2));
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  position: relative;
+}
+
+.sub-thumb-label {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sub-ap { position:absolute; top:10px; right:10px; background:rgba(62,207,142,.85); color:#fff; font-size:11px; font-weight:700; padding:4px 12px; border-radius:20px; }
+.sub-pe { position:absolute; top:10px; right:10px; background:rgba(212,150,10,.85); color:#fff; font-size:11px; font-weight:700; padding:4px 12px; border-radius:20px; }
+
+.sub-info { padding: 12px 14px; }
+.sub-name { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.sub-date { font-size: 12px; color: var(--dim); margin-bottom: 8px; }
+.sub-tktk { display:flex; align-items:center; gap:6px; color:var(--green); font-size:13px; font-weight:600; }
+.sub-link { display:flex; align-items:center; gap:5px; color:var(--blue); font-size:12px; margin-top:5px; cursor:pointer; }
+
+/* ── ANALYTICS ── */
+.rank-card {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 18px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.rank-ico-wrap {
+  width: 46px; height: 46px;
+  background: var(--card3);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.rank-name { font-size: 20px; font-weight: 800; color: var(--white); letter-spacing: -.3px; }
+.rank-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.rank-prog { font-size: 12px; color: var(--gold); margin-top: 6px; font-weight: 500; }
+.rank-prog-bar { height: 3px; background: var(--border2); border-radius:2px; overflow:hidden; margin-top:8px; }
+.rank-prog-fill { height:100%; background:var(--gold); border-radius:2px; width:0%; }
+.rank-right { margin-left: auto; text-align: right; }
+.rank-num { font-size: 22px; font-weight: 900; color: var(--white); letter-spacing: -.5px; }
+.rank-lbl { font-size: 11px; color: var(--dim); }
+
+.an-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.an-title { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 12px; }
+.an-big { font-size: 40px; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 4px; letter-spacing: -1.5px; }
+.an-lbl { font-size: 13px; color: var(--muted); }
+.an-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; border-top:1px solid var(--border); padding-top:14px; }
+.an-v { font-size: 15px; font-weight: 700; color: var(--muted); }
+.an-l { font-size: 12px; color: var(--dim); margin-top: 2px; }
+
+/* ── CHAT ── */
+.chat-hdr {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-hdr-ico { font-size: 20px; color: var(--muted); }
+.chat-hdr-t { font-size: 15px; font-weight: 700; color: var(--white); }
+.chat-hdr-s { font-size: 12px; color: var(--gold); font-weight: 500; margin-top: 2px; }
+
+.chat-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.msg-list {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Chat bubbles — match photos exactly: left-aligned cards */
+.cm {
+  background: var(--card2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  max-width: 88%;
+  align-self: flex-start;
+}
+
+.cm.mine {
+  background: var(--card3);
+  border: 1px solid var(--border2);
+  align-self: flex-end;
+}
+
+.cm-top { display:flex; align-items:center; gap:7px; margin-bottom:5px; }
+.cm-handle { font-size: 13px; font-weight: 700; color: var(--white); }
+
+.rc { font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px; text-transform:uppercase; letter-spacing:.3px; }
+.rc-s { background:rgba(255,255,255,.1); color:var(--muted); }
+.rc-g { background:rgba(212,150,10,.2); color:var(--amber); }
+.rc-a { background:rgba(91,155,213,.2); color:var(--blue); }
+.rc-e { background:rgba(62,207,142,.2); color:var(--green); }
+
+.cm-txt { font-size: 14px; color: var(--white); line-height: 1.5; font-weight: 500; }
+.cm-time { font-size: 11px; color: var(--dim); margin-top: 4px; }
+
+.chat-in-row {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--border);
+  align-items: center;
+}
+
+.chat-inp {
+  flex: 1;
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.chat-inp:focus { border-color: var(--gold-dim); }
+.chat-inp::placeholder { color: var(--dim); }
+
+.chat-cnt { font-size: 11px; color: var(--dim); text-align: right; padding: 0 12px 8px; }
+
+.chat-send {
+  width: 42px; height: 42px;
+  background: var(--gold);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+  transition: all .15s;
+  color: #0d0d0d;
+}
+
+.chat-send:hover { background: var(--gold2); }
+
+/* MODAL */
+.mov {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.mov.open { display:flex; }
+
+.modal {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 400px;
+  padding: 26px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.8);
+  position: relative;
+  animation: up .25s ease both;
+}
+
+.modal-t { font-size: 20px; font-weight: 800; color: var(--white); margin-bottom: 4px; letter-spacing: -.3px; }
+.modal-s { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.modal-x { position:absolute; top:20px; right:20px; background:none; border:none; color:var(--muted); font-size:18px; cursor:pointer; line-height:1; }
+.modal-x:hover { color: var(--white); }
+
+.dz {
+  border: 2px dashed var(--border2);
+  border-radius: 12px;
+  padding: 36px 20px;
+  text-align: center;
+  margin-bottom: 18px;
+  cursor: pointer;
+  transition: all .2s;
+  background: var(--bg2);
+}
+
+.dz:hover { border-color: var(--gold-dim); background: var(--gold-bg); }
+.dz-ico { font-size: 30px; margin-bottom: 10px; }
+.dz-t { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.dz-s { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.dz-m { font-size: 11px; color: var(--green); margin-top: 8px; display:flex; align-items:center; justify-content:center; gap:4px; }
+
+.modal-btns { display:flex; justify-content:flex-end; gap:10px; }
+
+.btn-mc {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 11px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all .15s;
+}
+
+.btn-mc:hover { color: var(--white); }
+
+.btn-mu {
+  background: var(--gold);
+  color: #0d0d0d;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all .15s;
+}
+
+.btn-mu:hover { background: var(--gold2); }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  color: var(--white);
+  padding: 13px 20px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 8px 32px rgba(0,0,0,.6);
+  z-index: 1000;
+  transform: translateY(12px);
+  opacity: 0;
+  transition: all .3s;
+  max-width: 300px;
+}
+
+.toast.show { transform:translateY(0); opacity:1; }
+.toast.ok { border-left: 3px solid var(--green); }
+.toast.err { border-left: 3px solid var(--red); }
+
+.ftr { text-align:center; font-size:12px; color:var(--dim); padding:20px 16px; }
+
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+
+@media(max-width:430px) {
+  body { max-width:100%; }
+  .fg2 { grid-template-columns:1fr; }
+  .fg.full { grid-column:1; }
+  .stat-row { grid-template-columns:1fr; }
+  .ab { padding:18px 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="ls" class="screen active">
+  <div class="lcard">
+    <div class="llogo">
+      <img
+        src="https://www.rankcdn.com/cdn-cgi/image/quality=90,onerror=redirect,format=webp,fit=cover,width=300/troupon.com/simpletics.jpg"
+        alt="Simpletics"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="llogo-fb">SIMPLETICS</div>
+    </div>
+    <div class="l-title">Admin Access</div>
+    <div class="l-sub">Enter your password to access the CRM</div>
+    <div id="lerr" class="l-err">Incorrect password. Please try again.</div>
+    <label class="l-label">Password</label>
+    <div class="l-inp-wrap">
+      <span class="l-inp-ico">🔒</span>
+      <input type="password" id="lpass" class="l-inp" placeholder="Enter admin password" autocomplete="off">
+    </div>
+    <button class="l-btn" onclick="doLogin()">Sign In</button>
+    <div class="l-footer">Contract Management System<br>Secure admin access required</div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN ═══ -->
+<div id="as" class="screen">
+  <div class="ah">
+    <div class="a-logo">
+      <img src="https://www.rankcdn.com/cdn-cgi/image/quality=90,onerror=redirect,format=webp,fit=cover,width=300/troupon.com/simpletics.jpg"
+        alt="Simpletics"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="a-logo-fb">SIMPLETICS</div>
+      <span class="a-pill">Admin</span>
+    </div>
+    <div class="hbr">
+      <button class="btn-gold" onclick="toggleForm()">+ Add Creator</button>
+      <button class="btn-ghost" onclick="out()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="ab">
+    <div class="page-t">Dashboard</div>
+    <div class="page-s">UGC Creator Management — Simpletics</div>
+
+    <div class="stat-row">
+      <div class="stat-c"><div class="stat-l">Creators</div><div class="stat-v" id="s0">0</div><div class="stat-s">active accounts</div></div>
+      <div class="stat-c"><div class="stat-l">Approved</div><div class="stat-v" id="s1">0</div><div class="stat-s">total videos</div></div>
+      <div class="stat-c"><div class="stat-l">Paid Out</div><div class="stat-v" id="s2">$0</div><div class="stat-s">in payments</div></div>
+    </div>
+
+    <div class="acard" id="aform" style="display:none">
+      <div class="acard-t">Add New Creator</div>
+      <div class="fg2">
+        <div class="fg"><label class="fl">First Name</label><input class="fi" id="cfn" placeholder="Nathan"></div>
+        <div class="fg"><label class="fl">Last Name</label><input class="fi" id="cln" placeholder="Evans"></div>
+        <div class="fg"><label class="fl">TikTok Handle</label><input class="fi" id="chan" placeholder="@nath__ev"></div>
+        <div class="fg"><label class="fl">Email</label><input class="fi" id="cem" type="email" placeholder="nathan@email.com"></div>
+        <div class="fg"><label class="fl">Duration (days)</label><input class="fi" id="cdur" type="number" value="85"></div>
+        <div class="fg"><label class="fl">Videos Required</label><input class="fi" id="cvid" type="number" value="10"></div>
+        <div class="fg"><label class="fl">Fee Per Term ($)</label><input class="fi" id="cfee" type="number" value="2000"></div>
+        <div class="fg"><label class="fl">Creator Password</label><input class="fi" id="cpas" placeholder="e.g. nath2025" autocomplete="off"></div>
+        <div class="fg full"><label class="fl">Start Date</label><input class="fi" id="cst" type="date"></div>
+      </div>
+      <div class="form-btns">
+        <button class="btn-p" onclick="addC()">Create Account</button>
+        <button class="btn-s" onclick="toggleForm()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="acard-t">Registered Creators</div>
+      <div id="emp" class="empty"><div class="empty-i">—</div>No creators yet. Click "Add Creator" to get started.</div>
+      <div id="tw" class="tw" style="display:none">
+        <table>
+          <thead><tr><th>Creator</th><th>Contract</th><th>Progress</th><th>Fee</th><th>Status</th><th>Password</th><th>Actions</th></tr></thead>
+          <tbody id="ctb"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CREATOR PORTAL ═══ -->
+<div id="cs" class="screen">
+  <div class="crh">
+    <div class="crh-top">
+      <div class="crh-left">
+        <div class="crh-logo">
+          <img src="https://www.rankcdn.com/cdn-cgi/image/quality=90,onerror=redirect,format=webp,fit=cover,width=300/troupon.com/simpletics.jpg"
+            alt="Simpletics"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="crh-logo-fb">SIMPLETICS</div>
+        </div>
+        <div>
+          <div class="crh-suite">Creator Suite</div>
+          <div class="crh-welcome" id="crwel">Welcome back, —</div>
+        </div>
+      </div>
+      <button class="crh-back" onclick="out()">↩ Exit</button>
+    </div>
+
+    <div class="cc">
+      <div class="cc-l">Contract</div>
+      <div class="cc-v" id="crhan">@handle</div>
+    </div>
+
+    <div class="tabs">
+      <button class="tb on" onclick="tab('portal',this)">Portal</button>
+      <button class="tb" onclick="tab('analytics',this)">🏆 Analytics</button>
+      <button class="tb" onclick="tab('chat',this)">💬 Chat</button>
+    </div>
+  </div>
+
+  <div class="crb">
+
+    <!-- ─── PORTAL ─── -->
+    <div id="p-portal" class="pane on">
+
+      <!-- Announcement -->
+      <div class="ann-wrap">
+        <div class="ann-top">
+          <div class="ann-ico">📢</div>
+          <div>
+            <div class="ann-title">Important Announcements</div>
+            <span class="new-badge">1 new message</span>
+          </div>
+        </div>
+        <div class="ann-body">
+          <div class="ann-ico2">ℹ</div>
+          <div>
+            <div class="ann-txt">Hey! Before the end of Q1, we want to hear from you. What's working, what's not, what you want to see more of all anonymous, takes 3 min. Your input genuinely shapes how we run the Simpletics Creator Program. Drop any thoughts below in the form 👇</div>
+            <div><span class="ann-tag">INFO</span></div>
+            <div class="ann-time">🕐 Mar 7, 2026 · 3:07 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Term Status -->
+      <div class="term-card">
+        <div class="term-header"><span class="term-ico">⏱</span> Current Term Status</div>
+        <div class="term-row">
+          <div>
+            <div class="term-big" id="dleft">—</div>
+            <div class="term-lbl">Remaining in Contract</div>
+          </div>
+          <div>
+            <div class="term-big" id="dterm">—</div>
+            <div class="term-lbl">Left in Term</div>
+          </div>
+        </div>
+        <div class="term-footer">
+          <span>Total Contract Duration</span>
+          <span id="tdur">—</span>
+        </div>
+      </div>
+
+      <!-- Videos Approved -->
+      <div class="mc">
+        <div class="mc-left">
+          <div class="mc-lbl">Videos Approved</div>
+          <div class="mc-val" id="vfrac">0/10</div>
+          <div class="mc-sub" id="vpct">0% complete</div>
+        </div>
+        <div class="mc-ico">✅</div>
+      </div>
+
+      <!-- Monthly Fee -->
+      <div class="mc">
+        <div class="mc-left">
+          <div class="mc-lbl">Monthly Fee</div>
+          <div class="mc-val" id="cfee2">$0.00</div>
+          <div class="mc-sub">Per completed term</div>
+        </div>
+        <div class="mc-ico-gold">$</div>
+      </div>
+
+      <!-- Contract Progress -->
+      <div class="prog-card">
+        <div class="prog-t">Contract Progress</div>
+        <div class="prog-s">Your completion status for this contract</div>
+        <div class="prog-bar"><div class="prog-fill" id="prfil" style="width:0%"></div></div>
+        <div class="prog-stats">
+          <span id="prl">0 videos approved</span>
+          <span id="prr">10 remaining</span>
+        </div>
+      </div>
+
+      <!-- Payment History -->
+      <div class="pay-card">
+        <div class="pay-header">
+          <span class="pay-title-ico">$</span>
+          <span class="pay-title">Payment History</span>
+        </div>
+        <div class="pay-sub">Your recent payout requests and status</div>
+        <div id="paylist">
+          <div style="font-size:13px;color:var(--dim);text-align:center;padding:12px">No payments recorded yet.</div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="act-list">
+        <button class="act-gold" onclick="document.getElementById('upm').classList.add('open')">🎬 Upload Video</button>
+        <button class="act-dark" onclick="toast('Spark Code Submission coming soon.','')">↑ Spark Code Submission</button>
+        <button class="act-dark" onclick="toast('Product request sent!','ok')">📦 Get More Products</button>
+        <div class="act-disabled">$ Payment Disabled</div>
+      </div>
+
+      <!-- Submissions -->
+      <div class="subs-card">
+        <div class="subs-header">
+          <span class="subs-ico">🎬</span>
+          <span class="subs-title">Your Submissions</span>
+        </div>
+        <div class="subs-sub">Track the status of your content submissions</div>
+        <div id="sublist">
+          <div style="font-size:13px;color:var(--dim);text-align:center;padding:14px">No submissions yet.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ─── ANALYTICS ─── -->
+    <div id="p-analytics" class="pane">
+      <div class="rank-card">
+        <div class="rank-ico-wrap">🏆</div>
+        <div style="flex:1">
+          <div class="rank-name">Standard</div>
+          <div class="rank-sub">0 avg views per video</div>
+          <div class="rank-prog">Progress to Grinding</div>
+          <div class="rank-prog-bar"><div class="rank-prog-fill"></div></div>
+          <div style="font-size:11px;color:var(--dim);margin-top:5px">0 / 1.0K avg</div>
+        </div>
+        <div class="rank-right">
+          <div class="rank-num">0</div>
+          <div class="rank-lbl">lifetime views</div>
+        </div>
+      </div>
+
+      <div class="an-card">
+        <div class="an-title">This Term</div>
+        <div class="an-big">0</div>
+        <div class="an-lbl">avg views per video</div>
+        <div class="an-row">
+          <div><div class="an-v">0 videos</div><div class="an-l">submitted</div></div>
+          <div style="text-align:right"><div class="an-v">0 total</div><div class="an-l">views</div></div>
+        </div>
+      </div>
+
+      <div class="an-card">
+        <div class="an-title">All Time</div>
+        <div class="an-big">0</div>
+        <div class="an-lbl">avg views per video</div>
+        <div class="an-row">
+          <div><div class="an-v">0 videos</div><div class="an-l">submitted</div></div>
+          <div style="text-align:right"><div class="an-v">0 total</div><div class="an-l">views</div></div>
+        </div>
+      </div>
+
+      <div class="ftr">© 2025 Simpletics. All rights reserved.</div>
+    </div>
+
+    <!-- ─── CHAT ─── -->
+    <div id="p-chat" class="pane">
+      <div class="chat-hdr">
+        <div class="chat-hdr-ico">💬</div>
+        <div>
+          <div class="chat-hdr-t">Simpletics Community Chat</div>
+          <div class="chat-hdr-s">Chat with all Simpletics creators</div>
+        </div>
+      </div>
+
+      <div class="chat-box">
+        <div class="msg-list" id="mlist">
+          <div class="cm">
+            <div class="cm-top"><span class="cm-handle">@ethentrip</span><span class="rc rc-a">Ascending</span></div>
+            <div class="cm-txt">Whatsup</div>
+            <div class="cm-time">6 days ago</div>
+          </div>
+          <div class="cm">
+            <div class="cm-top"><span class="cm-handle">@leoechhh</span><span class="rc rc-g">Grinding</span></div>
+            <div class="cm-txt">Yooo just hit locked in</div>
+            <div class="cm-time">6 days ago</div>
+          </div>
+          <div class="cm">
+            <div class="cm-top"><span class="cm-handle">@ethentrip</span><span class="rc rc-a">Ascending</span></div>
+            <div class="cm-txt">good stuff</div>
+            <div class="cm-time">6 days ago</div>
+          </div>
+          <div class="cm">
+            <div class="cm-top"><span class="cm-handle">@asodcutz</span><span class="rc rc-s">Standard</span></div>
+            <div class="cm-txt">Any one in Cali? Ima start doing based content</div>
+            <div class="cm-time">5 days ago</div>
+          </div>
+        </div>
+        <div class="chat-in-row">
+          <input type="text" class="chat-inp" id="chinp" placeholder="Type a message..." maxlength="500" oninput="document.getElementById('chcnt').textContent=this.value.length+'/500'">
+          <button class="chat-send" onclick="sendMsg()">➤</button>
+        </div>
+        <div class="chat-cnt" id="chcnt">0/500</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- UPLOAD MODAL -->
+<div class="mov" id="upm">
+  <div class="modal">
+    <button class="modal-x" onclick="document.getElementById('upm').classList.remove('open')">✕</button>
+    <div class="modal-t">Upload Video</div>
+    <div class="modal-s">Submit your content for review and approval</div>
+    <div class="dz" onclick="toast('File selection simulated.','')">
+      <div class="dz-ico">🎬</div>
+      <div class="dz-t">Upload Video File</div>
+      <div class="dz-s">Drag & drop or click to select · Max 500MB<br>MP4, MOV, AVI, WMV, FLV, WEBM</div>
+      <div class="dz-m">🌐 Deployment mode: Large files use chunked upload</div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-mc" onclick="document.getElementById('upm').classList.remove('open')">Cancel</button>
+      <button class="btn-mu" onclick="simUpload()">Upload Video</button>
+    </div>
+  </div>
+</div>
+
+<div id="toastel" class="toast"></div>
+
+<script>
+let creators = JSON.parse(localStorage.getItem('smp_v4') || '[]');
+let me = null;
+const APASS = '456';
+const save = () => localStorage.setItem('smp_v4', JSON.stringify(creators));
+
+function toast(msg, type) {
+  const el = document.getElementById('toastel');
+  el.textContent = msg;
+  el.className = 'toast ' + (type||'') + ' show';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function fmt(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+}
+
+function dLeft(start, dur) {
+  const end = new Date(new Date(start).getTime() + dur*86400000);
+  return Math.max(0, Math.ceil((end - Date.now())/86400000));
+}
+
+document.getElementById('lpass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+function doLogin() {
+  const pass = document.getElementById('lpass').value.trim();
+  const err = document.getElementById('lerr');
+  err.style.display = 'none';
+
+  if (pass === APASS) { renderAdmin(); show('as'); return; }
+
+  let found = creators.find(c => c.password === pass);
+
+  if (!found && pass === '123') {
+    const demo = creators.find(c => c.email === 'demo@simpletics.com');
+    if (demo) {
+      found = demo;
+    } else {
+      const d = {id:'demo',fn:'Demo',ln:'Creator',handle:'@demo_creator',email:'demo@simpletics.com',dur:85,vids:10,fee:2000,password:'123',start:new Date().toISOString().split('T')[0],approved:0,payments:[],submissions:[]};
+      creators.push(d); save(); found = d;
+    }
+  }
+
+  if (found) { me = found; loadPortal(found); show('cs'); return; }
+
+  err.style.display = 'block';
+  document.getElementById('lpass').value = '';
+}
+
+function out() {
+  me = null;
+  document.getElementById('lpass').value = '';
+  document.getElementById('lerr').style.display = 'none';
+  show('ls');
+}
+
+function toggleForm() {
+  const f = document.getElementById('aform');
+  f.style.display = f.style.display==='none' ? 'block' : 'none';
+  document.getElementById('cst').value = new Date().toISOString().split('T')[0];
+}
+
+function addC() {
+  const fn=document.getElementById('cfn').value.trim();
+  const ln=document.getElementById('cln').value.trim();
+  const han=document.getElementById('chan').value.trim();
+  const em=document.getElementById('cem').value.trim();
+  const dur=parseInt(document.getElementById('cdur').value)||85;
+  const vid=parseInt(document.getElementById('cvid').value)||10;
+  const fee=parseFloat(document.getElementById('cfee').value)||2000;
+  const pas=document.getElementById('cpas').value.trim();
+  const st=document.getElementById('cst').value||new Date().toISOString().split('T')[0];
+
+  if(!fn||!ln||!han||!pas){toast('Please fill all required fields.','err');return;}
+  if(pas===APASS){toast('Password conflicts with admin password.','err');return;}
+  if(creators.find(c=>c.password===pas)){toast('Password already in use.','err');return;}
+
+  creators.push({id:Date.now().toString(),fn,ln,handle:han,email:em,dur,vids:vid,fee,password:pas,start:st,approved:0,payments:[],submissions:[]});
+  save();
+  ['cfn','cln','chan','cem','cpas'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('aform').style.display='none';
+  renderAdmin();
+  toast(`Account created for ${fn} ${ln}`, 'ok');
+}
+
+function delC(id) {
+  if(!confirm('Delete this creator?')) return;
+  creators=creators.filter(c=>c.id!==id);
+  save(); renderAdmin();
+  toast('Creator removed.','');
+}
+
+function payC(id) {
+  const amt=parseFloat(prompt('Payment amount ($):'));
+  if(!amt||isNaN(amt)) return;
+  const c=creators.find(x=>x.id===id);
+  if(!c) return;
+  c.payments.unshift({amount:amt,date:new Date().toISOString(),method:'wire_transfer'});
+  save(); renderAdmin();
+  toast(`$${amt.toFixed(2)} added for ${c.fn}`,'ok');
+}
+
+function apprV(id) {
+  const c=creators.find(x=>x.id===id);
+  if(!c) return;
+  if(c.approved>=c.vids){toast('Maximum videos reached.','err');return;}
+  const title=prompt('Approved video title:');
+  if(!title) return;
+  c.approved++;
+  c.submissions.unshift({title,date:new Date().toISOString(),status:'approved'});
+  save(); renderAdmin();
+  toast(`Video approved for ${c.fn}`,'ok');
+}
+
+function renderAdmin() {
+  document.getElementById('s0').textContent=creators.length;
+  document.getElementById('s1').textContent=creators.reduce((s,c)=>s+c.approved,0);
+  document.getElementById('s2').textContent='$'+creators.reduce((s,c)=>s+c.payments.reduce((ps,p)=>ps+p.amount,0),0).toLocaleString();
+
+  const emp=document.getElementById('emp');
+  const tw=document.getElementById('tw');
+  if(!creators.length){emp.style.display='block';tw.style.display='none';return;}
+  emp.style.display='none'; tw.style.display='block';
+
+  document.getElementById('ctb').innerHTML=creators.map(c=>{
+    const pct=Math.round((c.approved/c.vids)*100);
+    const rem=dLeft(c.start,c.dur);
+    const active=rem>0;
+    return `<tr>
+      <td><div class="hc">${c.handle}</div><div class="nc">${c.fn} ${c.ln}</div></td>
+      <td style="color:var(--muted);font-size:12px">${c.dur}d<br><span style="color:var(--dim)">${fmt(c.start)}</span></td>
+      <td><div class="mini-b"><div class="mini-w"><div class="mini-f" style="width:${pct}%"></div></div>${c.approved}/${c.vids}</div><div style="font-size:10px;color:var(--dim);margin-top:2px">${pct}%</div></td>
+      <td style="font-weight:700;color:var(--white)">$${c.fee.toFixed(2)}</td>
+      <td><span class="bge ${active?'bg-a':'bg-e'}">${active?'● Active':'● Expired'}</span></td>
+      <td><span class="ptag">${c.password}</span></td>
+      <td><div class="ab-row"><button class="bx" onclick="apprV('${c.id}')">✓ Video</button><button class="bx" onclick="payC('${c.id}')">$ Pay</button><button class="bxd" onclick="delC('${c.id}')">✕</button></div></td>
+    </tr>`;
+  }).join('');
+}
+
+function loadPortal(c) {
+  document.getElementById('crwel').textContent=`Welcome back, ${c.fn} ${c.ln}`;
+  document.getElementById('crhan').textContent=c.handle;
+
+  const rem=dLeft(c.start,c.dur);
+  const termLeft=Math.min(rem,30);
+  const pct=Math.round((c.approved/c.vids)*100);
+
+  document.getElementById('dleft').textContent=rem+' Days';
+  document.getElementById('dterm').textContent=termLeft+' Days';
+  document.getElementById('tdur').textContent=c.dur+' days';
+  document.getElementById('vfrac').textContent=`${c.approved}/${c.vids}`;
+  document.getElementById('vpct').textContent=`${pct}% complete`;
+  document.getElementById('cfee2').textContent=`$${c.fee.toFixed(2)}`;
+  document.getElementById('prfil').style.width=pct+'%';
+  document.getElementById('prl').textContent=`${c.approved} videos approved`;
+  document.getElementById('prr').textContent=`${c.vids-c.approved} remaining`;
+
+  const pl=document.getElementById('paylist');
+  if(!c.payments.length){
+    pl.innerHTML='<div style="font-size:13px;color:var(--dim);text-align:center;padding:12px">No payments recorded yet.</div>';
+  } else {
+    pl.innerHTML=c.payments.slice(0,3).map(p=>
+      `<div class="pay-item"><div><div class="pay-amt">$${p.amount.toFixed(2)}</div><div class="pay-info">${p.method.replace('_',' ')} · ${fmt(p.date)}</div></div><span class="paid-tag">PAID</span></div>`
+    ).join('');
+    if(c.payments.length>3) pl.innerHTML+=`<div class="pay-more">and ${c.payments.length-3} more requests</div>`;
+  }
+
+  const sl=document.getElementById('sublist');
+  if(!c.submissions.length){
+    sl.innerHTML='<div style="font-size:13px;color:var(--dim);text-align:center;padding:14px">No submissions yet.</div>';
+  } else {
+    sl.innerHTML=c.submissions.map(s=>
+      `<div class="sub-item">
+        <div class="sub-thumb">🎬
+          <div class="sub-thumb-label">${s.title}</div>
+          <span class="${s.status==='approved'?'sub-ap':'sub-pe'}">${s.status==='approved'?'Approved':'Pending'}</span>
+        </div>
+        <div class="sub-info">
+          <div class="sub-name">${s.title}</div>
+          <div class="sub-date">Submitted ${fmt(s.date)}</div>
+          ${s.status==='approved'?'<div class="sub-tktk">✅ TikTok Link Verified</div><div class="sub-link">↗ View on TikTok</div>':''}
+        </div>
+      </div>`
+    ).join('');
+  }
+
+  tab('portal',document.querySelector('.tb'));
+}
+
+function tab(name,btn) {
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('p-'+name).classList.add('on');
+  btn.classList.add('on');
+}
+
+function sendMsg() {
+  const inp=document.getElementById('chinp');
+  const msg=inp.value.trim();
+  if(!msg||!me) return;
+  const list=document.getElementById('mlist');
+  const d=document.createElement('div');
+  d.className='cm mine';
+  d.innerHTML=`<div class="cm-top"><span class="cm-handle">${me.handle}</span><span class="rc rc-s">Standard</span></div><div class="cm-txt">${msg}</div><div class="cm-time">Just now</div>`;
+  list.appendChild(d);
+  list.scrollTop=list.scrollHeight;
+  inp.value='';
+  document.getElementById('chcnt').textContent='0/500';
+}
+
+document.getElementById('chinp').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
+
+function simUpload() {
+  document.getElementById('upm').classList.remove('open');
+  toast('Video submitted for approval ✓','ok');
+  if(me){
+    me.submissions.unshift({title:'New Content Submission',date:new Date().toISOString(),status:'pending'});
+    const c=creators.find(x=>x.id===me.id);
+    if(c){c.submissions=me.submissions;save();}
+    loadPortal(me);
+  }
+}
+
+renderAdmin();
+</script>
+</body>
+</html>
