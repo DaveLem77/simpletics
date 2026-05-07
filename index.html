@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Simpletics — Creator Suite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   /* warmer matte darks — no pure blacks */
@@ -1101,16 +1101,113 @@ tr:hover td { background:rgba(255,255,255,.02); }
   .ab { padding:18px 14px; }
 }
 </style>
-</head>
-<body>
+<style>
+/* SVG icon helpers */
+.ico { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ico svg { display:block; }
+.ico-sm svg { width:14px; height:14px; }
+.ico-md svg { width:18px; height:18px; }
+.ico-lg svg { width:22px; height:22px; }
+
+/* update l-inp-ico to hold svg */
+.l-inp-ico { display:flex; align-items:center; }
+.l-inp-ico svg { width:16px; height:16px; }
+
+/* sub-thumb icon */
+.sub-thumb-ico { opacity:.3; }
+.sub-thumb-ico svg { width:36px; height:36px; }
+
+/* rank icon wrap - use svg */
+.rank-ico-wrap svg { width:22px; height:22px; }
+
+/* chat send btn */
+.chat-send svg { width:16px; height:16px; }
+
+/* dz drop icon */
+.dz-ico svg { width:32px; height:32px; }
+
+/* modal close */
+.modal-x svg { width:16px; height:16px; }
+</style>
+
+<!-- SVG icon library — Lucide-style, all inline -->
+<svg style="display:none" id="icons">
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+  </symbol>
+  <symbol id="i-megaphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 11l18-5v12L3 13"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
+  </symbol>
+  <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 10l4.55-2.27A1 1 0 0 1 21 8.63v6.74a1 1 0 0 1-1.45.9L15 14"/><rect x="3" y="7" width="12" height="10" rx="2"/>
+  </symbol>
+  <symbol id="i-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+  </symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/>
+  </symbol>
+  <symbol id="i-message" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+  </symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+  </symbol>
+  <symbol id="i-dollar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+  </symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+  </symbol>
+  <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+  </symbol>
+  <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+  </symbol>
+  <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+  </symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+  </symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+  </symbol>
+  <symbol id="i-log-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+  </symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+  </symbol>
+  <symbol id="i-bar-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+  </symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="5 3 19 12 5 21 5 3"/>
+  </symbol>
+</svg>
 
 <!-- ═══ LOGIN ═══ -->
 <div id="ls" class="screen active">
   <div class="lcard">
     <div class="llogo">
-      <img
-        src="https://www.rankcdn.com/cdn-cgi/image/quality=90,onerror=redirect,format=webp,fit=cover,width=300/troupon.com/simpletics.jpg"
-        alt="Simpletics"
+      <img src="media/logob.png" alt="Simpletics"
         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <div class="llogo-fb">SIMPLETICS</div>
     </div>
@@ -1119,11 +1216,13 @@ tr:hover td { background:rgba(255,255,255,.02); }
     <div id="lerr" class="l-err">Incorrect password. Please try again.</div>
     <label class="l-label">Password</label>
     <div class="l-inp-wrap">
-      <span class="l-inp-ico">🔒</span>
+      <span class="l-inp-ico ico">
+        <svg><use href="#i-lock"/></svg>
+      </span>
       <input type="password" id="lpass" class="l-inp" placeholder="Enter admin password" autocomplete="off">
     </div>
     <button class="l-btn" onclick="doLogin()">Sign In</button>
-    <div class="l-footer">Contract Management System<br>Secure admin access required</div>
+    <div class="l-footer">Contract Management System · Secure admin access required</div>
   </div>
 </div>
 
@@ -1131,15 +1230,20 @@ tr:hover td { background:rgba(255,255,255,.02); }
 <div id="as" class="screen">
   <div class="ah">
     <div class="a-logo">
-      <img src="https://www.rankcdn.com/cdn-cgi/image/quality=90,onerror=redirect,format=webp,fit=cover,width=300/troupon.com/simpletics.jpg"
-        alt="Simpletics"
+      <img src="media/logob.png" alt="Simpletics"
         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <div class="a-logo-fb">SIMPLETICS</div>
       <span class="a-pill">Admin</span>
     </div>
     <div class="hbr">
-      <button class="btn-gold" onclick="toggleForm()">+ Add Creator</button>
-      <button class="btn-ghost" onclick="out()">Sign Out</button>
+      <button class="btn-gold" onclick="toggleForm()">
+        <span class="ico ico-sm" style="display:inline-flex;margin-right:4px"><svg><use href="#i-plus"/></svg></span>
+        Add Creator
+      </button>
+      <button class="btn-ghost" onclick="out()">
+        <span class="ico ico-sm" style="display:inline-flex;margin-right:4px"><svg><use href="#i-log-out"/></svg></span>
+        Sign Out
+      </button>
     </div>
   </div>
 
@@ -1148,9 +1252,21 @@ tr:hover td { background:rgba(255,255,255,.02); }
     <div class="page-s">UGC Creator Management — Simpletics</div>
 
     <div class="stat-row">
-      <div class="stat-c"><div class="stat-l">Creators</div><div class="stat-v" id="s0">0</div><div class="stat-s">active accounts</div></div>
-      <div class="stat-c"><div class="stat-l">Approved</div><div class="stat-v" id="s1">0</div><div class="stat-s">total videos</div></div>
-      <div class="stat-c"><div class="stat-l">Paid Out</div><div class="stat-v" id="s2">$0</div><div class="stat-s">in payments</div></div>
+      <div class="stat-c">
+        <div class="stat-l">Creators</div>
+        <div class="stat-v" id="s0">0</div>
+        <div class="stat-s">active accounts</div>
+      </div>
+      <div class="stat-c">
+        <div class="stat-l">Approved</div>
+        <div class="stat-v" id="s1">0</div>
+        <div class="stat-s">total videos</div>
+      </div>
+      <div class="stat-c">
+        <div class="stat-l">Paid Out</div>
+        <div class="stat-v" id="s2">$0</div>
+        <div class="stat-s">in payments</div>
+      </div>
     </div>
 
     <div class="acard" id="aform" style="display:none">
@@ -1174,7 +1290,10 @@ tr:hover td { background:rgba(255,255,255,.02); }
 
     <div class="acard">
       <div class="acard-t">Registered Creators</div>
-      <div id="emp" class="empty"><div class="empty-i">—</div>No creators yet. Click "Add Creator" to get started.</div>
+      <div id="emp" class="empty">
+        <div class="empty-i ico" style="display:flex;justify-content:center"><svg width="32" height="32"><use href="#i-user"/></svg></div>
+        No creators yet. Click "Add Creator" to get started.
+      </div>
       <div id="tw" class="tw" style="display:none">
         <table>
           <thead><tr><th>Creator</th><th>Contract</th><th>Progress</th><th>Fee</th><th>Status</th><th>Password</th><th>Actions</th></tr></thead>
@@ -1191,8 +1310,7 @@ tr:hover td { background:rgba(255,255,255,.02); }
     <div class="crh-top">
       <div class="crh-left">
         <div class="crh-logo">
-          <img src="https://www.rankcdn.com/cdn-cgi/image/quality=90,onerror=redirect,format=webp,fit=cover,width=300/troupon.com/simpletics.jpg"
-            alt="Simpletics"
+          <img src="media/logob.png" alt="Simpletics"
             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
           <div class="crh-logo-fb">SIMPLETICS</div>
         </div>
@@ -1201,7 +1319,10 @@ tr:hover td { background:rgba(255,255,255,.02); }
           <div class="crh-welcome" id="crwel">Welcome back, —</div>
         </div>
       </div>
-      <button class="crh-back" onclick="out()">↩ Exit</button>
+      <button class="crh-back" onclick="out()">
+        <span class="ico ico-sm" style="display:inline-flex;margin-right:4px"><svg><use href="#i-log-out"/></svg></span>
+        Exit
+      </button>
     </div>
 
     <div class="cc">
@@ -1211,38 +1332,54 @@ tr:hover td { background:rgba(255,255,255,.02); }
 
     <div class="tabs">
       <button class="tb on" onclick="tab('portal',this)">Portal</button>
-      <button class="tb" onclick="tab('analytics',this)">🏆 Analytics</button>
-      <button class="tb" onclick="tab('chat',this)">💬 Chat</button>
+      <button class="tb" onclick="tab('analytics',this)">
+        <span class="ico ico-sm"><svg><use href="#i-bar-chart"/></svg></span>
+        Analytics
+      </button>
+      <button class="tb" onclick="tab('chat',this)">
+        <span class="ico ico-sm"><svg><use href="#i-message"/></svg></span>
+        Chat
+      </button>
     </div>
   </div>
 
   <div class="crb">
 
-    <!-- ─── PORTAL ─── -->
+    <!-- PORTAL -->
     <div id="p-portal" class="pane on">
 
       <!-- Announcement -->
       <div class="ann-wrap">
         <div class="ann-top">
-          <div class="ann-ico">📢</div>
+          <div class="ann-ico ico">
+            <svg width="18" height="18"><use href="#i-megaphone"/></svg>
+          </div>
           <div>
             <div class="ann-title">Important Announcements</div>
             <span class="new-badge">1 new message</span>
           </div>
         </div>
         <div class="ann-body">
-          <div class="ann-ico2">ℹ</div>
+          <div class="ann-ico2 ico">
+            <svg width="16" height="16"><use href="#i-info"/></svg>
+          </div>
           <div>
-            <div class="ann-txt">Hey! Before the end of Q1, we want to hear from you. What's working, what's not, what you want to see more of all anonymous, takes 3 min. Your input genuinely shapes how we run the Simpletics Creator Program. Drop any thoughts below in the form 👇</div>
+            <div class="ann-txt">Hey! Before the end of Q1, we want to hear from you. What's working, what's not, what you want to see more of — all anonymous, takes 3 min. Your input genuinely shapes how we run the Simpletics Creator Program. Drop any thoughts below in the form.</div>
             <div><span class="ann-tag">INFO</span></div>
-            <div class="ann-time">🕐 Mar 7, 2026 · 3:07 PM</div>
+            <div class="ann-time">
+              <span class="ico ico-sm"><svg><use href="#i-clock"/></svg></span>
+              Mar 7, 2026 · 3:07 PM
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Term Status -->
       <div class="term-card">
-        <div class="term-header"><span class="term-ico">⏱</span> Current Term Status</div>
+        <div class="term-header">
+          <span class="term-ico ico ico-sm"><svg><use href="#i-clock"/></svg></span>
+          Current Term Status
+        </div>
         <div class="term-row">
           <div>
             <div class="term-big" id="dleft">—</div>
@@ -1259,27 +1396,30 @@ tr:hover td { background:rgba(255,255,255,.02); }
         </div>
       </div>
 
-      <!-- Videos Approved -->
+      <!-- Metrics -->
       <div class="mc">
         <div class="mc-left">
           <div class="mc-lbl">Videos Approved</div>
           <div class="mc-val" id="vfrac">0/10</div>
           <div class="mc-sub" id="vpct">0% complete</div>
         </div>
-        <div class="mc-ico">✅</div>
+        <div class="mc-ico ico ico-lg" style="color:var(--green);opacity:.45">
+          <svg><use href="#i-check-circle"/></svg>
+        </div>
       </div>
 
-      <!-- Monthly Fee -->
       <div class="mc">
         <div class="mc-left">
           <div class="mc-lbl">Monthly Fee</div>
           <div class="mc-val" id="cfee2">$0.00</div>
           <div class="mc-sub">Per completed term</div>
         </div>
-        <div class="mc-ico-gold">$</div>
+        <div class="mc-ico-gold ico ico-lg" style="color:var(--gold);opacity:.45">
+          <svg><use href="#i-dollar"/></svg>
+        </div>
       </div>
 
-      <!-- Contract Progress -->
+      <!-- Progress -->
       <div class="prog-card">
         <div class="prog-t">Contract Progress</div>
         <div class="prog-s">Your completion status for this contract</div>
@@ -1293,7 +1433,7 @@ tr:hover td { background:rgba(255,255,255,.02); }
       <!-- Payment History -->
       <div class="pay-card">
         <div class="pay-header">
-          <span class="pay-title-ico">$</span>
+          <span class="pay-title-ico ico ico-md" style="color:var(--gold)"><svg><use href="#i-dollar"/></svg></span>
           <span class="pay-title">Payment History</span>
         </div>
         <div class="pay-sub">Your recent payout requests and status</div>
@@ -1304,16 +1444,28 @@ tr:hover td { background:rgba(255,255,255,.02); }
 
       <!-- Actions -->
       <div class="act-list">
-        <button class="act-gold" onclick="document.getElementById('upm').classList.add('open')">🎬 Upload Video</button>
-        <button class="act-dark" onclick="toast('Spark Code Submission coming soon.','')">↑ Spark Code Submission</button>
-        <button class="act-dark" onclick="toast('Product request sent!','ok')">📦 Get More Products</button>
-        <div class="act-disabled">$ Payment Disabled</div>
+        <button class="act-gold" onclick="document.getElementById('upm').classList.add('open')">
+          <span class="ico ico-md"><svg><use href="#i-video"/></svg></span>
+          Upload Video
+        </button>
+        <button class="act-dark" onclick="toast('Spark Code Submission coming soon.','')">
+          <span class="ico ico-md"><svg><use href="#i-code"/></svg></span>
+          Spark Code Submission
+        </button>
+        <button class="act-dark" onclick="toast('Product request sent!','ok')">
+          <span class="ico ico-md"><svg><use href="#i-package"/></svg></span>
+          Get More Products
+        </button>
+        <div class="act-disabled">
+          <span class="ico ico-md"><svg><use href="#i-dollar"/></svg></span>
+          Payment Disabled
+        </div>
       </div>
 
       <!-- Submissions -->
       <div class="subs-card">
         <div class="subs-header">
-          <span class="subs-ico">🎬</span>
+          <span class="subs-ico ico ico-md"><svg><use href="#i-video"/></svg></span>
           <span class="subs-title">Your Submissions</span>
         </div>
         <div class="subs-sub">Track the status of your content submissions</div>
@@ -1321,13 +1473,14 @@ tr:hover td { background:rgba(255,255,255,.02); }
           <div style="font-size:13px;color:var(--dim);text-align:center;padding:14px">No submissions yet.</div>
         </div>
       </div>
-
     </div>
 
-    <!-- ─── ANALYTICS ─── -->
+    <!-- ANALYTICS -->
     <div id="p-analytics" class="pane">
       <div class="rank-card">
-        <div class="rank-ico-wrap">🏆</div>
+        <div class="rank-ico-wrap ico" style="color:var(--gold)">
+          <svg><use href="#i-trophy"/></svg>
+        </div>
         <div style="flex:1">
           <div class="rank-name">Standard</div>
           <div class="rank-sub">0 avg views per video</div>
@@ -1364,10 +1517,10 @@ tr:hover td { background:rgba(255,255,255,.02); }
       <div class="ftr">© 2025 Simpletics. All rights reserved.</div>
     </div>
 
-    <!-- ─── CHAT ─── -->
+    <!-- CHAT -->
     <div id="p-chat" class="pane">
       <div class="chat-hdr">
-        <div class="chat-hdr-ico">💬</div>
+        <div class="chat-hdr-ico ico ico-md" style="color:var(--muted)"><svg><use href="#i-message"/></svg></div>
         <div>
           <div class="chat-hdr-t">Simpletics Community Chat</div>
           <div class="chat-hdr-s">Chat with all Simpletics creators</div>
@@ -1393,13 +1546,16 @@ tr:hover td { background:rgba(255,255,255,.02); }
           </div>
           <div class="cm">
             <div class="cm-top"><span class="cm-handle">@asodcutz</span><span class="rc rc-s">Standard</span></div>
-            <div class="cm-txt">Any one in Cali? Ima start doing based content</div>
+            <div class="cm-txt">Any one in Cali? Ima start doing simpletics content soon</div>
             <div class="cm-time">5 days ago</div>
           </div>
         </div>
         <div class="chat-in-row">
-          <input type="text" class="chat-inp" id="chinp" placeholder="Type a message..." maxlength="500" oninput="document.getElementById('chcnt').textContent=this.value.length+'/500'">
-          <button class="chat-send" onclick="sendMsg()">➤</button>
+          <input type="text" class="chat-inp" id="chinp" placeholder="Type a message..." maxlength="500"
+            oninput="document.getElementById('chcnt').textContent=this.value.length+'/500'">
+          <button class="chat-send" onclick="sendMsg()">
+            <svg width="16" height="16"><use href="#i-send"/></svg>
+          </button>
         </div>
         <div class="chat-cnt" id="chcnt">0/500</div>
       </div>
@@ -1411,14 +1567,21 @@ tr:hover td { background:rgba(255,255,255,.02); }
 <!-- UPLOAD MODAL -->
 <div class="mov" id="upm">
   <div class="modal">
-    <button class="modal-x" onclick="document.getElementById('upm').classList.remove('open')">✕</button>
+    <button class="modal-x" onclick="document.getElementById('upm').classList.remove('open')">
+      <svg width="16" height="16"><use href="#i-x"/></svg>
+    </button>
     <div class="modal-t">Upload Video</div>
     <div class="modal-s">Submit your content for review and approval</div>
     <div class="dz" onclick="toast('File selection simulated.','')">
-      <div class="dz-ico">🎬</div>
+      <div class="dz-ico ico" style="display:flex;justify-content:center;margin-bottom:10px;color:var(--muted)">
+        <svg width="32" height="32"><use href="#i-video"/></svg>
+      </div>
       <div class="dz-t">Upload Video File</div>
       <div class="dz-s">Drag & drop or click to select · Max 500MB<br>MP4, MOV, AVI, WMV, FLV, WEBM</div>
-      <div class="dz-m">🌐 Deployment mode: Large files use chunked upload</div>
+      <div class="dz-m">
+        <span class="ico ico-sm"><svg><use href="#i-globe"/></svg></span>
+        Deployment mode: Large files use chunked upload
+      </div>
     </div>
     <div class="modal-btns">
       <button class="btn-mc" onclick="document.getElementById('upm').classList.remove('open')">Cancel</button>
@@ -1610,14 +1773,15 @@ function loadPortal(c) {
   } else {
     sl.innerHTML=c.submissions.map(s=>
       `<div class="sub-item">
-        <div class="sub-thumb">🎬
+        <div class="sub-thumb">
+          <span class="sub-thumb-ico ico" style="color:var(--muted)"><svg width="36" height="36"><use href="#i-play"/></svg></span>
           <div class="sub-thumb-label">${s.title}</div>
           <span class="${s.status==='approved'?'sub-ap':'sub-pe'}">${s.status==='approved'?'Approved':'Pending'}</span>
         </div>
         <div class="sub-info">
           <div class="sub-name">${s.title}</div>
           <div class="sub-date">Submitted ${fmt(s.date)}</div>
-          ${s.status==='approved'?'<div class="sub-tktk">✅ TikTok Link Verified</div><div class="sub-link">↗ View on TikTok</div>':''}
+          ${s.status==='approved'?'<div class="sub-tktk"><span class="ico ico-sm"><svg><use href="#i-check"/></svg></span> TikTok Link Verified</div><div class="sub-link"><span class="ico ico-sm"><svg><use href="#i-link"/></svg></span> View on TikTok</div>':''}
         </div>
       </div>`
     ).join('');
@@ -1660,6 +1824,118 @@ function simUpload() {
   }
 }
 
+renderAdmin();
+</script>
+
+<script>
+// Patch renderAdmin to output icon-based table actions
+// and loadPortal to output icon-based submissions
+
+// Override renderAdmin table rows
+function renderAdmin() {
+  document.getElementById('s0').textContent = creators.length;
+  document.getElementById('s1').textContent = creators.reduce((s,c) => s + c.approved, 0);
+  document.getElementById('s2').textContent = '$' + creators.reduce((s,c) => s + c.payments.reduce((ps,p) => ps + p.amount, 0), 0).toLocaleString();
+
+  const emp = document.getElementById('emp');
+  const tw  = document.getElementById('tw');
+  if (!creators.length) { emp.style.display = 'block'; tw.style.display = 'none'; return; }
+  emp.style.display = 'none'; tw.style.display = 'block';
+
+  document.getElementById('ctb').innerHTML = creators.map(c => {
+    const pct    = Math.round((c.approved / c.vids) * 100);
+    const rem    = dLeft(c.start, c.dur);
+    const active = rem > 0;
+    return `<tr>
+      <td><div class="hc">${c.handle}</div><div class="nc">${c.fn} ${c.ln}</div></td>
+      <td style="color:var(--muted);font-size:12px">${c.dur}d<br><span style="color:var(--dim)">${fmt(c.start)}</span></td>
+      <td><div class="mini-b"><div class="mini-w"><div class="mini-f" style="width:${pct}%"></div></div>${c.approved}/${c.vids}</div>
+          <div style="font-size:10px;color:var(--dim);margin-top:2px">${pct}%</div></td>
+      <td style="font-weight:500">$${c.fee.toFixed(2)}</td>
+      <td><span class="bge ${active ? 'bg-a' : 'bg-e'}">${active ? 'Active' : 'Expired'}</span></td>
+      <td><span class="ptag">${c.password}</span></td>
+      <td><div class="ab-row">
+        <button class="bx" onclick="apprV('${c.id}')">Approve</button>
+        <button class="bx" onclick="payC('${c.id}')">Pay</button>
+        <button class="bxd" onclick="delC('${c.id}')">Remove</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+// Override loadPortal to use SVG in submissions
+const _origLoadPortal = loadPortal;
+function loadPortal(c) {
+  document.getElementById('crwel').textContent = `Welcome back, ${c.fn} ${c.ln}`;
+  document.getElementById('crhan').textContent = c.handle;
+
+  const rem      = dLeft(c.start, c.dur);
+  const termLeft = Math.min(rem, 30);
+  const pct      = Math.round((c.approved / c.vids) * 100);
+
+  document.getElementById('dleft').textContent = rem + ' Days';
+  document.getElementById('dterm').textContent = termLeft + ' Days';
+  document.getElementById('tdur').textContent  = c.dur + ' days';
+  document.getElementById('vfrac').textContent = `${c.approved}/${c.vids}`;
+  document.getElementById('vpct').textContent  = `${pct}% complete`;
+  document.getElementById('cfee2').textContent = `$${c.fee.toFixed(2)}`;
+  document.getElementById('prfil').style.width = pct + '%';
+  document.getElementById('prl').textContent   = `${c.approved} videos approved`;
+  document.getElementById('prr').textContent   = `${c.vids - c.approved} remaining`;
+
+  // Payments
+  const pl = document.getElementById('paylist');
+  if (!c.payments.length) {
+    pl.innerHTML = '<div style="font-size:13px;color:var(--dim);text-align:center;padding:12px">No payments recorded yet.</div>';
+  } else {
+    pl.innerHTML = c.payments.slice(0, 3).map(p =>
+      `<div class="pay-item">
+        <div>
+          <div class="pay-amt">$${p.amount.toFixed(2)}</div>
+          <div class="pay-info">${p.method.replace('_',' ')} · ${fmt(p.date)}</div>
+        </div>
+        <span class="paid-tag">Paid</span>
+      </div>`
+    ).join('');
+    if (c.payments.length > 3)
+      pl.innerHTML += `<div class="pay-more">and ${c.payments.length - 3} more</div>`;
+  }
+
+  // Submissions — no emoji, SVG icon in thumb
+  const sl = document.getElementById('sublist');
+  if (!c.submissions.length) {
+    sl.innerHTML = '<div style="font-size:13px;color:var(--dim);text-align:center;padding:14px">No submissions yet.</div>';
+  } else {
+    sl.innerHTML = c.submissions.map(s => `
+      <div class="sub-item">
+        <div class="sub-thumb">
+          <span class="sub-thumb-ico ico" style="color:var(--muted)">
+            <svg width="36" height="36"><use href="#i-play"/></svg>
+          </span>
+          <div class="sub-thumb-label">${s.title}</div>
+          <span class="${s.status === 'approved' ? 'sub-ap' : 'sub-pe'}">${s.status === 'approved' ? 'Approved' : 'Pending'}</span>
+        </div>
+        <div class="sub-info">
+          <div class="sub-name">${s.title}</div>
+          <div class="sub-date">Submitted ${fmt(s.date)}</div>
+          ${s.status === 'approved' ? `
+            <div class="sub-tktk">
+              <span class="ico ico-sm"><svg><use href="#i-check"/></svg></span>
+              TikTok Link Verified
+            </div>
+            <div class="sub-link">
+              <span class="ico ico-sm"><svg><use href="#i-link"/></svg></span>
+              View on TikTok
+            </div>` : ''}
+        </div>
+      </div>`
+    ).join('');
+  }
+
+  tab('portal', document.querySelector('.tb'));
+}
+
+// Re-run init
 renderAdmin();
 </script>
 </body>
